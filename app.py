@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, send
 
 app = Flask(__name__)
@@ -29,12 +29,19 @@ class Message:
 
 
 class Client:
-    def __init__(self, name:str):
+    def __init__(self, sid:str, name:str):
         # TODO: gerar id único
         self.id :str = "12345"
+        self.sid :str = sid
         self.name :str = name
         self.room_id : str = ""
     
+    def getSID(self) -> str:
+        return self.sid
+
+    def getRoomId(self) -> str:
+        return self.room_id
+
     def enterRoom(self, room_id:str):
         if getChatRoom(room_id):
             self.room_id = room_id
@@ -42,8 +49,6 @@ class Client:
     def leaveRoom(self):
         self.room_id = ""
 
-    def getRoomId(self) -> str:
-        return self.room_id
 
 
 class ChatRoom:
@@ -98,6 +103,12 @@ def getClient(client_id:str) -> Client | None:
         return clients[client_id]
     else:
         return None
+
+def getClientBySID(sid:str) -> Client | None:
+    for client in clients.values():
+        if client.getSID() == sid:
+            return client
+    return None
 
 # puxa de chatrooms o objeto ChatRoom com o id dado
 def getChatRoom(room_id:str) -> ChatRoom | None:
@@ -161,7 +172,7 @@ def register_client(data):
         emit("user_already_exists")
         return
 
-    newClient = Client(data["client_name"])
+    newClient = Client(request.sid, data["client_name"])
     clients[newClient.id] = newClient
 
     # NOTE: deve mandar apenas para o cliente específico
@@ -177,7 +188,7 @@ def createRoom(data):
     
     # TODO: substituir todas as ocorrências desse getClient() hardcoded pela
     #       identificação do cliente que ativou o listener
-    client = getClient("12345")
+    client = getClientBySID(request.sid)
     if client:
         newRoom = ChatRoom(data["room_name"], client)
         chatrooms[newRoom.id] = newRoom
@@ -189,7 +200,7 @@ def createRoom(data):
 @socketio.on("enter_room")
 def load_room(data):
     room = getChatRoom(data["room_id"])
-    client = getClient("12345")
+    client = getClientBySID(request.sid)
 
     if not room:
         emit("invalid_room")
@@ -209,7 +220,7 @@ def load_room(data):
 
 @socketio.on("leave_room")
 def leaveRoom():
-    client = getClient("12345")
+    client = getClientBySID(request.sid)
     if not client:
         emit("invalid_user")
     else:
@@ -226,7 +237,7 @@ def leaveRoom():
 
 @socketio.on("remove_room")
 def removeRoom(data):
-    client = getClient("12345")
+    client = getClientBySID(request.sid)
     if not client:
         emit("invalid_user")
     else:
@@ -245,16 +256,18 @@ def removeRoom(data):
 
 @socketio.on("send_message")
 def onClientMessage(data):
-    client = getClient("12345")
+    client = getClientBySID(request.sid)
     if client:
         room = getChatRoom(client.getRoomId())
         if room:
             msg = Message(client.name, data["content"])
             room.addMessage(msg)
 
-            # NOTE: deve mandar pra todos os clientes na sala
-            emit("get_message", msg.formatMessage(), broadcast=True)
-            print(f"\"{client.name}\" mandou mensagem em {room.name}")
+            # broadcast pra todos os clientes na sala
+            for client_id in room.clients:
+                referent_client = getClient(client_id)
+                emit("get_message", msg.formatMessage(), to=referent_client.getSID())
+            print(f"\"{client.name}\" mandou mensagem em \"{room.name}\"")
 
 
 if __name__ == "__main__":
