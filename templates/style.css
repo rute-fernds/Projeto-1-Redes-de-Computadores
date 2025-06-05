@@ -1,8 +1,15 @@
+@font-face {
+    font-family: 'Monaspace';
+    src: url('./fonts/Monaspace-Regular.woff2') format('woff2'),
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Monaspace', monospace;
 }
 
 :root {
