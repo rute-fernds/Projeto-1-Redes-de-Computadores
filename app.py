@@ -6,12 +6,12 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "secreta!"
 socketio = SocketIO(app)
 
-# TODO: suporte para mensagens com conteúdo multimídia
+# TODO: testar suporte para mensagens com arquivo
 # TODO: resolução de nomes (opcional)
 
 
 class Message:
-    def __init__(self, author:str, content:str="", file="", timeStamp:int=0):
+    def __init__(self, author:str, content:str="", file=None, timeStamp:int=0):
         self.author :str = author
         self.content :str = content
         self.file = file
@@ -296,10 +296,8 @@ def onClientImage(data):
         if not room:
             send("invalid_room")
         else:
-            msg = Message(client.name, image=data["image"])
+            msg = Message(client.name, file=data["image"])
             room.addMessage(msg)
-
-            print(data["image"])
 
             # broadcast pra todos os clientes na sala
             for client_id in room.clients:
