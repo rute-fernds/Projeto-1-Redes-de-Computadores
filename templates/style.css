@@ -1,0 +1,206 @@
+@font-face {
+    font-family: 'Monaspace';
+    src: url('./fonts/Monaspace-Regular.woff2') format('woff2'),
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Monaspace', monospace;
+}
+
+:root {
+    font-size: 16px;
+}
+
+body {
+    background: #c0c0c0; /* clássico Windows 2000 */
+    color: #000000;
+}
+
+.container {
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilização da seção de Login*/
+.login {
+    width: 100%;
+    max-width: 330px;
+    background-color: #f0f0f0;
+    border: 2px solid #808080; /* borda cinza clássica */
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: inset -2px -2px 5px #ffffff, inset 2px 2px 5px #a0a0a0; /* efeito 3D */
+}
+
+.login__form input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+}
+
+#username-input {
+    width: 100%;
+    border: 2px solid #808080;
+    padding: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background-color: #dcdcdc; /* tom mais "Win2000" */
+    outline: none;
+    border-radius: 4px;
+    color: #000000;
+    box-shadow: inset -1px -1px 2px #ffffff, inset 1px 1px 2px #808080;
+}
+
+#username-input:focus {
+    border-color: #000080; /* azul clássico */
+}
+
+#register {
+    border: 2px solid #808080;
+    width: 50%;
+    margin-top: 20px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background-color: #dcdcdc;
+    cursor: pointer;
+    color: #000;
+    box-shadow: inset -2px -2px 4px #ffffff, inset 2px 2px 4px #808080;
+}
+
+#register:hover {
+    background-color: #c0c0c0;
+}
+
+.login__icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    border-radius: 50px;
+    background: #d9e6e7;
+    padding: 10px;
+    border: 2px solid #808080;
+    box-shadow: inset -2px -2px 4px #ffffff, inset 2px 2px 4px #808080;
+}
+
+/*Estilização da seção de escolha de chat room*/
+
+
+/*Estilzação do Chat*/
+.chat {
+    background-color: #c0c0c0; /* fundo clássico Win2000 */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid #808080;
+    box-shadow: inset -2px -2px 5px #ffffff, inset 2px 2px 5px #808080; /* relevo */
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.chat__form {
+    background-color: #dcdcdc;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 2px solid #808080;
+    box-shadow: inset -2px -2px 4px #ffffff, inset 2px 2px 4px #808080;
+}
+
+#chat-input {
+    border: 2px solid #808080;
+    padding: 10px;
+    border-radius: 4px;
+    flex-grow: 1;
+    background-color: #dcdcdc;
+    outline: none;
+    color: #000000;
+    font-size: 0.9rem;
+    box-shadow: inset -1px -1px 2px #ffffff, inset 1px 1px 2px #808080;
+}
+
+#send_message {
+    border: 2px solid #808080;
+    background-color: #dcdcdc;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset -2px -2px 4px #ffffff, inset 2px 2px 4px #808080;
+}
+
+#send_message:hover {
+    background-color: #b0b0b0;
+}
+
+#send_message img {
+    width: 20px;
+    height: 20px;
+}
+
+.chat__messages {
+    background-color: #f0f0f0;
+    flex-grow: 1;
+    padding: 30px 30px 90px;
+    overflow-y: auto;
+    border-top: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    box-shadow: inset -2px -2px 4px #ffffff, inset 2px 2px 4px #808080;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.chat__message {
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #000;
+}
+
+.message__time {
+    color: #666;
+    font-weight: 400;
+    margin-right: 5px;
+    font-size: 0.8rem;
+}
+
+.message__user {
+    color: #000080;
+    font-weight: 700;
+    margin-right: 5px;
+}
+
+.message__text {
+    color: #000;
+}
+
+.message--self {
+    align-self: flex-end;
+    text-align: right;
+}
+
+.message--other {
+    align-self: flex-start;
+    text-align: left;
+}
