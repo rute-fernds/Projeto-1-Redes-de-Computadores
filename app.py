@@ -1,22 +1,30 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, send
+from uuid import uuid4
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "secret!"
+app.config["SECRET_KEY"] = "secreta!"
 socketio = SocketIO(app)
 
+# TODO: testar suporte para mensagens com arquivo
+# TODO: resolução de nomes (opcional)
+
+
 class Message:
-    def __init__(self, author:str, content, timeStamp:int=0):
+    def __init__(self, author:str, content:str="", file=None, timeStamp:int=0):
         self.author :str = author
-        self.content = content
+        self.content :str = content
+        self.file = file
         self.timeStamp :int = timeStamp
 
-    def formatMessage(self):
+    def formatMessage(self) -> dict:
         return {
-            "author" : self.author,
-            "content" : self.content,
-            "timeStamp" : self.timeStamp
+                "author"    : self.author,
+                "content"   : self.content,
+                "file"      : self.file,
+                "timeStamp" : self.timeStamp
         }
+        
 
     def getAuthor(self) -> str:
         return self.author
@@ -30,8 +38,7 @@ class Message:
 
 class Client:
     def __init__(self, sid:str, name:str):
-        # TODO: gerar id único
-        self.id :str = "12345"
+        self.id :str = str(uuid4())
         self.sid :str = sid
         self.name :str = name
         self.room_id : str = ""
@@ -50,10 +57,9 @@ class Client:
         self.room_id = ""
 
 
-
 class ChatRoom:
     def __init__(self, name:str, owner:Client):
-        self.id = "id0"
+        self.id = str(uuid4())
         self.name :str = name
         self.owner :str = owner.name
         self.clients :list[str] = []
@@ -118,8 +124,11 @@ def getChatRoom(room_id:str) -> ChatRoom | None:
         return None
 
 # lista as salas no formato [(nome, lista_ids_de_clientes)]
-def listRooms() -> list[tuple[str, list[str]]]:
-    return [(room.name, room.clients) for room in chatrooms.values()]
+def listRooms() -> list[dict]:
+    return [{
+        "id"      : room.id,
+        "name"    : room.name,
+        "clients" : room.clients} for room in chatrooms.values()]
 
 # retorna as mensagens da sala no formato [(nome_autor, conteúdo, timestamp)]
 def getRoomMessages(room_id) -> list:
@@ -128,7 +137,12 @@ def getRoomMessages(room_id) -> list:
         room = getChatRoom(room_id)
         if room:
             for message in room.messages:
-                messages.append([message.author, message.content, message.timeStamp])
+                messages.append( {
+                        "author"    : message.author,
+                        "content"   : message.content,
+                        "file"      : message.file,
+                        "timeStamp" : message.timeStamp
+                    } )
     return messages
 
 # retorna dicionário os dados da sala {nome, dono, ids_dos_clientes, mensagens}
@@ -169,7 +183,7 @@ def index():
 @socketio.on("register")
 def register_client(data):
     if verifyClientName(data["client_name"]):
-        emit("user_already_exists")
+        send("user_already_exists")
         return
 
     newClient = Client(request.sid, data["client_name"])
@@ -177,17 +191,15 @@ def register_client(data):
 
     # NOTE: deve mandar apenas para o cliente específico
     emitGetRooms()
-    print(f"\"{newClient.name}\" foi registrado!")
+    print(f"Cliente \"{newClient.name}\" foi registrado!")
 
 
 @socketio.on("create_room")
 def createRoom(data):
     if verifyRoomName(data["room_name"]):
-        emit("room_already_exists")
+        send("room_already_exists")
         return
-    
-    # TODO: substituir todas as ocorrências desse getClient() hardcoded pela
-    #       identificação do cliente que ativou o listener
+
     client = getClientBySID(request.sid)
     if client:
         newRoom = ChatRoom(data["room_name"], client)
@@ -203,9 +215,9 @@ def load_room(data):
     client = getClientBySID(request.sid)
 
     if not room:
-        emit("invalid_room")
+        send("invalid_room")
     elif not client:
-        emit("invalid_user")
+        send("invalid_user")
     else:
         if client.getRoomId() != "":
             emit("user_already_in_room")
@@ -222,11 +234,11 @@ def load_room(data):
 def leaveRoom():
     client = getClientBySID(request.sid)
     if not client:
-        emit("invalid_user")
+        send("invalid_user")
     else:
         room = getChatRoom(client.getRoomId())
         if not room:
-            emit("invalid_room")
+            send("invalid_room")
         else:
             room.removeClient(client.id)
 
@@ -257,10 +269,14 @@ def removeRoom(data):
 @socketio.on("send_message")
 def onClientMessage(data):
     client = getClientBySID(request.sid)
-    if client:
+    if not client:
+        send("invalid_user")
+    else:
         room = getChatRoom(client.getRoomId())
-        if room:
-            msg = Message(client.name, data["content"])
+        if not room:
+            send("invalid_room")
+        else:
+            msg = Message(client.name, content=data["content"])
             room.addMessage(msg)
 
             # broadcast pra todos os clientes na sala
@@ -270,5 +286,6 @@ def onClientMessage(data):
             print(f"\"{client.name}\" mandou mensagem em \"{room.name}\"")
 
 
+
 if __name__ == "__main__":
-    socketio.run(app) # type: ignore
+    socketio.run(app, host="0.0.0.0", port=5000)
