@@ -286,26 +286,6 @@ def onClientMessage(data):
             print(f"\"{client.name}\" mandou mensagem em \"{room.name}\"")
 
 
-@socketio.on("send_image")
-def onClientImage(data):
-    client = getClientBySID(request.sid)
-    if not client:
-        send("invalid_user")
-    else:
-        room = getChatRoom(client.getRoomId())
-        if not room:
-            send("invalid_room")
-        else:
-            msg = Message(client.name, file=data["image"])
-            room.addMessage(msg)
-
-            # broadcast pra todos os clientes na sala
-            for client_id in room.clients:
-                referent_client = getClient(client_id)
-                emit("get_message", msg.formatMessage(), to=referent_client.getSID())
-            print(f"\"{client.name}\" mandou mensagem em \"{room.name}\"")
-
-
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=5000)
