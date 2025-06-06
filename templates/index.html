@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>CLIENTE</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <section class="container">
 
         <!-- Login -->
         <section class="login">
-            <img src="img/user_icon.png" alt="User Icon" class="login__icon">
+            <img src="{{ url_for('static', filename='img/user_icon.png') }}" alt="User Icon" class="login__icon">
             <form class="login__form">
                 <input type="text" id="username-input" placeholder="Digite seu nome" required />
             </form>   
@@ -25,7 +25,7 @@
                 <li class="chat-room__item" data-room="124">
                     <span class="chat-room__name">Sala 124</span>
                     <button class="chat-room__delete" data-room="124">
-                        <img src="img/delete.png" alt="">
+                        <img src="{{ url_for('static', filename='img/delete.png') }}" alt="">
                     </button>
                 </li>
             </ul>
@@ -65,7 +65,7 @@
                 <form class="chat__form">
                     <input type="text" id="chat-input" placeholder="Digite uma mensagem" required />
                     <button type="submit" id="send_message">
-                        <img src="img/send.png" alt="send Icon">
+                        <img src="{{ url_for('static', filename='img/send.png') }}" alt="send Icon">
                     </button>
                 </form>
             </section> 
@@ -75,7 +75,7 @@
     </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
-    <script src="listeners.js"></script>
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/listeners.js') }}"></script>
 </body>
 </html>
