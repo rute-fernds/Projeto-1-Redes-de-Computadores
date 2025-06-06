@@ -1,4 +1,4 @@
-import { createRoomDiv, setRoomName, listClients, createMessageDiv,
+import { createRoomDiv, setRoomName, listUsers, createMessageDiv,
          createImgMessageDiv, createFileMessageDiv }
 from './index.js';
 
@@ -19,10 +19,10 @@ socketio.on("get_rooms", (rooms) => {
 
 socketio.on("load_room", (roomData) => {
     setRoomName(roomData["name"]);
-    listClients(roomData["clients"]);
+    listUsers(roomData["clients"]);
     
     roomData["messages"].forEach((message) => {
-        createMessageDiv(message["author"], message["text"], message["file"], message["timeStamp"]);
+        createMessageDiv(message["author"], message["text"], message["file_buffer"], message["timeStamp"]);
     });
 });
 
@@ -80,7 +80,7 @@ function SendMessage(type, msgText=null, fileData=null) {
         socketio.emit("send_message", {type: "txt", text : msgText});
     }
     else {
-        var imgBuffer = fileData.arrayBuffer; // ArrayBuffer(fileData) ?
-        socketio.emit("send_message", {type : msgFile.type, file_buffer : imgBuffer});
+        var fileBuffer = fileData.arrayBuffer; // ArrayBuffer(fileData) ?
+        socketio.emit("send_message", {type : msgFile.type, file_buffer : fileBuffer});
     }
 }
