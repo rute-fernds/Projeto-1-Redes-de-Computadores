@@ -11,26 +11,28 @@ socketio = SocketIO(app)
 
 
 class Message:
-    def __init__(self, author:str, content:str="", file=None, timeStamp:int=0):
+    def __init__(self, author:str, text:str="", msgType=None, fileBuffer=None, timeStamp:int=0):
         self.author :str = author
-        self.content :str = content
-        self.file = file
+        self.type = msgType
+        self.text :str = text
+        self.fileBuffer = fileBuffer
         self.timeStamp :int = timeStamp
 
     def formatMessage(self) -> dict:
         return {
-                "author"    : self.author,
-                "content"   : self.content,
-                "file"      : self.file,
-                "timeStamp" : self.timeStamp
+                "author"      : self.author,
+                "text"        : self.text,
+                "type"        : self.type,
+                "file_buffer" : self.fileBuffer,
+                "timeStamp"   : self.timeStamp
         }
         
 
     def getAuthor(self) -> str:
         return self.author
 
-    def getContent(self):
-        return self.content
+    def getText(self):
+        return self.text
 
     def getTimeStamp(self):
         return self.timeStamp
@@ -137,12 +139,7 @@ def getRoomMessages(room_id) -> list:
         room = getChatRoom(room_id)
         if room:
             for message in room.messages:
-                messages.append( {
-                        "author"    : message.author,
-                        "content"   : message.content,
-                        "file"      : message.file,
-                        "timeStamp" : message.timeStamp
-                    } )
+                messages.append(message.formatMessage())
     return messages
 
 # retorna dicionário os dados da sala {nome, dono, ids_dos_clientes, mensagens}
@@ -169,13 +166,6 @@ def emitGetRooms():
 @app.route("/")
 def index():
     return render_template("index.html")
-
-#@app.route("/salas")
-#def 
-
-#@app.route("/salas/<room>") ??
-#def 
-
 
 
 # listeners
@@ -220,7 +210,7 @@ def load_room(data):
         send("invalid_user")
     else:
         if client.getRoomId() != "":
-            emit("user_already_in_room")
+            send("user_already_in_room")
             return
 
         room.addClient(client)
@@ -251,14 +241,14 @@ def leaveRoom():
 def removeRoom(data):
     client = getClientBySID(request.sid)
     if not client:
-        emit("invalid_user")
+        send("invalid_user")
     else:
         room = getChatRoom(data["room_id"])
         if not room:
-            emit("invalid_room")
+            send("invalid_room")
         else:
             if len(room.clients) != 0:
-                emit("room_not_empty")
+                send("room_not_empty")
             else:
                 del chatrooms[room.id]
 
@@ -276,14 +266,17 @@ def onClientMessage(data):
         if not room:
             send("invalid_room")
         else:
-            msg = Message(client.name, content=data["content"])
+            if data["type"] == "txt":
+                msg = Message(client.name, text=data["text"])
+            else:
+                msg = Message(client.name, msgType=data["type"], fileBuffer=data["file_buffer"], timeStamp=data["timeStamp"])
+
             room.addMessage(msg)
 
             # broadcast pra todos os clientes na sala
             for client_id in room.clients:
                 referent_client = getClient(client_id)
                 emit("get_message", msg.formatMessage(), to=referent_client.getSID())
-            print(f"\"{client.name}\" mandou mensagem em \"{room.name}\"")
 
 
 

@@ -6,55 +6,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf-8">
-        window.onload = function() {
-            var socketio = io();
-
-            // registro do cliente
-            const client = {name : "sade", room_id : "" };
-
-
-            socketio.on("get_rooms", (rooms) => {
-                console.log("Salas disponíveis:");
-                rooms.forEach((element) => console.log(`${element["name"]}, ${element["clients"].length} conectados`));
-                if (rooms.length > 0) {
-                    client.room_id = rooms[0]["id"]; // emulando a seleção de sala
-                    console.log(client.room_id);
-                }
-            });
-
-            socketio.on("load_room", (roomData) => {
-                console.log(`Sala: ${roomData["name"]}\nPessoas nessa sala: ${roomData["clients"].length}\nMensagens:`);
-                roomData["messages"].forEach((element) => {console.log(`[${element["author"]}]: ${element["content"]} - ${element["timeStamp"]}`);});
-            });
-
-            socketio.on("get_message", (msg) => {
-                console.log(`Olha a mensagem! ${msg}`);
-            });
-
-
-            document.getElementById("register").addEventListener("click", () => {
-                socketio.emit("register", {client_name : client.name});
-            });
-            document.getElementById("create_room").addEventListener("click", () => {
-                socketio.emit("create_room", {room_name : "sessão gratuita de psicanálise"});
-            });
-            document.getElementById("enter_room").addEventListener("click", () => {
-                socketio.emit("enter_room", {room_id : client.room_id});
-            });
-            document.getElementById("send_message").addEventListener("click", () => {
-                socketio.emit("send_message", {content : "never as good as the first time"});
-            });
-            document.getElementById("leave_room").addEventListener("click", () => {
-                socketio.emit("leave_room");
-            });
-            document.getElementById("remove_room").addEventListener("click", () => {
-                socketio.emit("remove_room", {room_id : client.room_id});
-            });
-        }
-    </script>
-
     <section class="container">
 
         <!-- Login -->
@@ -111,6 +62,8 @@
 
     </section>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script src="script.js"></script>
+    <script src="listeners.js"></script>
 </body>
 </html>

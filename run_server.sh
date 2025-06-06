@@ -11,4 +11,4 @@ pip-compile requirements.in
 pip install -r ./requirements.txt
 
 # Inicia o servidor Flask usando o arquivo app.py
-flask --app app.py run
+python3 app.py
