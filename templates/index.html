@@ -68,21 +68,33 @@
 
         <!-- Seleção de Chat -->
         <section class="chat-room">
-            <h2>Salas Disponíveis</h2>
+            <h2>SALAS</h2>
             
             <ul class="chat-room__list">
                 <li class="chat-room__item" data-room="124">
                     <span class="chat-room__name">Sala 124</span>
-                    <button class="chat-room__delete" data-room="124">🗑️</button>
-                </li>
-                <li class="chat-room__item" data-room="57">
-                    <span class="chat-room__name">Sala 57</span>
-                    <button class="chat-room__delete" data-room="57">🗑️</button>
+                    <button class="chat-room__delete" data-room="124">
+                        <img src="img/delete.png" alt="">
+                    </button>
                 </li>
             </ul>
 
-            <button id="create-room">Criar Nova Sala</button>
+            <button id="create-room">Nova Sala</button>
         </section>
+
+        <!--Criando Nova Sala de Chat-->
+        <section class="create-room hidden">
+            <h2>Criar Nova Sala</h2>
+            <form id="create-room-form">
+                <label for="room-name">Nome da Sala:</label>
+                <input type="text" id="room-name" name="room-name" required>
+                
+                <button type="submit">Criar</button>
+                <button type="button" id="cancel-create">Cancelar</button>
+            </form>
+        </section>
+        
+
 
         <!-- Chat -->
         <section class="chat">
@@ -98,14 +110,14 @@
                     <span class="message__user">TESTE</span>
                     <span class="message__text">Olá mundo</span>
                 </div>
-            </section>
 
-            <form class="chat__form">
-                <input type="text" id="chat-input" placeholder="Digite uma mensagem" required />
-                <button type="submit" id="send_message">
-                    <img src="img/send.png" alt="send Icon">
-                </button>
-            </form> 
+                <form class="chat__form">
+                    <input type="text" id="chat-input" placeholder="Digite uma mensagem" required />
+                    <button type="submit" id="send_message">
+                        <img src="img/send.png" alt="send Icon">
+                    </button>
+                </form>
+            </section> 
         </section>
             
 

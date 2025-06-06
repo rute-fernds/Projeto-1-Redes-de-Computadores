@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Monaspace';
     src: url('./fonts/Monaspace-Regular.woff2') format('woff2'),
-    font-weight: normal;
+    font-weigh: tnormal;
     font-style: normal;
 }
 
@@ -17,7 +17,7 @@
 }
 
 body {
-    background: #c0c0c0; /* clássico Windows 2000 */
+    background: #c0c0c0;
     color: #000000;
 }
 
@@ -34,11 +34,11 @@ body {
     width: 100%;
     max-width: 330px;
     background-color: #f0f0f0;
-    border: 2px solid #808080; /* borda cinza clássica */
+    border: 2px solid #808080; 
     border-radius: 6px;
     padding: 20px;
     text-align: center;
-    box-shadow: inset -2px -2px 5px #ffffff, inset 2px 2px 5px #a0a0a0; /* efeito 3D */
+    box-shadow: inset -2px -2px 5px #ffffff, inset 2px 2px 5px #a0a0a0; 
 }
 
 .login__form input {
@@ -53,7 +53,7 @@ body {
     padding: 8px;
     font-size: 0.85rem;
     font-weight: 600;
-    background-color: #dcdcdc; /* tom mais "Win2000" */
+    background-color: #dcdcdc; 
     outline: none;
     border-radius: 4px;
     color: #000000;
@@ -61,7 +61,7 @@ body {
 }
 
 #username-input:focus {
-    border-color: #000080; /* azul clássico */
+    border-color: #000080; 
 }
 
 #register {
@@ -94,46 +94,226 @@ body {
 }
 
 /*Estilização da seção de escolha de chat room*/
+.chat-room {
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    max-height: 500px;
+    background-color: #f0f0f0;
+    border: 2px solid #808080; 
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: inset -2px -2px 5px #ffffff, inset 2px 2px 5px #a0a0a0;
+    margin-top: 20px;
+}
+
+.chat-room h2 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: #000;
+}
+
+.chat-room__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.chat-room__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #dcdcdc;
+    border: 2px solid #808080;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    box-shadow: inset -1px -1px 3px #ffffff, inset 1px 1px 3px #808080;
+    font-weight: 600;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.chat-room__item:hover {
+    background-color: #c0c0c0;
+}
+
+.chat-room__name {
+    font-size: 0.9rem;
+}
+
+.chat-room__delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem; 
+    transition: transform 0.2s ease;
+}
+
+.chat-room__delete:hover {
+    transform: scale(1.6);
+}
+
+#create-room {
+    border: 2px solid #808080;
+    width: 30%;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background-color: #dcdcdc;
+    cursor: pointer;
+    color: #000;
+    box-shadow: inset -2px -2px 4px #ffffff, inset 2px 2px 4px #808080;
+    transition: background-color 0.2s ease;
+}
+
+#create-room:hover {
+    background-color: #c0c0c0;
+}
+
+.chat-room__delete img {
+    height: 20px;
+    width: 20px;
+}
+
+/*Estilização da seção de criar chat room*/
+.create-room {
+    width: 100%;
+    max-width: 330px;
+    background-color: #f0f0f0;
+    border: 2px solid #808080; 
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: inset -2px -2px 5px #ffffff, inset 2px 2px 5px #a0a0a0;
+    margin-top: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.create-room h2 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: #000;
+}
+
+#create-room-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    text-align: left;
+    color: #000;
+}
+
+#create-room-form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    border: 2px solid #808080;
+    padding: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background-color: #dcdcdc; 
+    outline: none;
+    border-radius: 4px;
+    color: #000000;
+    box-shadow: inset -1px -1px 2px #ffffff, inset 1px 1px 2px #808080;
+}
+
+#create-room-form input:focus {
+    border-color: #000080; 
+}
+
+#create-room-form button {
+    border: 2px solid #808080;
+    width: 45%;
+    margin: 5px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background-color: #dcdcdc;
+    cursor: pointer;
+    color: #000;
+    box-shadow: inset -2px -2px 4px #ffffff, inset 2px 2px 4px #808080;
+    transition: background-color 0.2s ease;
+}
+
+#create-room-form button:hover {
+    background-color: #c0c0c0;
+}
+
+.hidden {
+    display: none;
+}
 
 
 /*Estilzação do Chat*/
 .chat {
-    background-color: #c0c0c0; /* fundo clássico Win2000 */
-    width: 100%;
-    height: 100%;
+    background-color: #f9f9f9;
+    width: 100%; 
+    max-width: 1000px; 
+    height: 85dvh; 
+    min-height: 500px; 
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: column; 
+    position: absolute no form resolvem;
     border: 2px solid #808080;
-    box-shadow: inset -2px -2px 5px #ffffff, inset 2px 2px 5px #808080; /* relevo */
-    border-radius: 6px;
+    box-shadow: inset -2px -2px 5px #ffffff, inset 2px 2px 5px #808080;
+    border-radius: 8px;
     overflow: hidden;
 }
 
 .chat__form {
+    width: 100%;
     background-color: #dcdcdc;
     padding: 15px 20px;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    border-top: 2px solid #808080;
+    gap: 10px; 
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    z-index: 10;
+    border-top: 2px solid #808080; 
     box-shadow: inset -2px -2px 4px #ffffff, inset 2px 2px 4px #808080;
 }
 
-#chat-input {
-    border: 2px solid #808080;
-    padding: 10px;
-    border-radius: 4px;
+.chat__messages {
     flex-grow: 1;
-    background-color: #dcdcdc;
+    overflow-y: auto;  
+    display: flex;
+    flex-direction: column;              
+    justify-content: flex-end; 
+}
+
+/*Estilização do input de envio de mensagens*/
+#chat-input {
+    border: 2px solid #9c9c9c;
+    padding: 10px 15px;
+    border-radius: 4px;
+    flex-grow: 1; 
+    background-color: #e6e6e6;
     outline: none;
-    color: #000000;
-    font-size: 0.9rem;
-    box-shadow: inset -1px -1px 2px #ffffff, inset 1px 1px 2px #808080;
+    color: #333333;
+    font-size: 1rem;
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2), inset -1px -1px 3px rgba(255, 255, 255, 0.7);
+    transition: all 0.2s ease-in-out;
+}
+
+#chat-input:focus {
+    border-color: #7c7b7b;
+    background-color: #f0ebeb;
 }
 
 #send_message {
@@ -149,58 +329,60 @@ body {
 }
 
 #send_message:hover {
+    background-color: #bebdbd;
+}
+
+#send_message:active {
     background-color: #b0b0b0;
+    box-shadow: inset 1px 1px 3px #808080, inset -1px -1px 3px #ffffff;
+    transform: translateY(1px);
 }
 
 #send_message img {
-    width: 20px;
     height: 20px;
+    width: 20px;
 }
 
-.chat__messages {
-    background-color: #f0f0f0;
-    flex-grow: 1;
-    padding: 30px 30px 90px;
-    overflow-y: auto;
-    border-top: 2px solid #808080;
-    border-bottom: 2px solid #808080;
-    box-shadow: inset -2px -2px 4px #ffffff, inset 2px 2px 4px #808080;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    gap: 8px;
-}
-
+/*Estilização das Mensagens Enviadas*/
 .chat__message {
-    font-size: 0.9rem;
-    font-weight: 500;
-    line-height: 1.4;
-    color: #000;
+    max-width: 75%; 
+    line-height: 1.4; 
+    font-size: 0.95rem;
+    margin-bottom: 10px; 
+    padding: 10px 15px;
 }
 
 .message__time {
-    color: #666;
+    color: #888;
+    font-size: 0.75rem;
+    margin-right: 8px;
     font-weight: 400;
-    margin-right: 5px;
-    font-size: 0.8rem;
 }
 
 .message__user {
-    color: #000080;
+    color: #004d99; 
     font-weight: 700;
-    margin-right: 5px;
+    margin-right: 8px;
 }
 
 .message__text {
-    color: #000;
+    color: #333;
 }
+
 
 .message--self {
-    align-self: flex-end;
-    text-align: right;
+    align-self: flex-end; 
+    text-align: right; 
 }
 
+
 .message--other {
-    align-self: flex-start;
+    align-self: flex-start; 
     text-align: left;
 }
+
+
+
+
+
+
