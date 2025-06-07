@@ -1,4 +1,4 @@
-import { createRoomDiv, setRoomName, listUsers, createMessageDiv,
+import { createRoomLi, setRoomName, listUsers, createMessageDiv,
          createImgMessageDiv, createFileMessageDiv }
 from './back-front.js';
 
@@ -13,7 +13,7 @@ const client = {name : "", roomId : "" };
 
 socketio.on("get_rooms", (rooms) => {
     rooms.forEach((room) => {
-        createRoomDiv(room["id"], room["name"], room["clients"]);
+        createRoomLi(room["id"], room["name"], room["clients"]);
     });
 });
 

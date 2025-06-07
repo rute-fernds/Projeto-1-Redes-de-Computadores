@@ -48,8 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             chatRoomSection.style.display = "none";
             chatSection.style.display = "block";
-
-            // TODO: EnterRoom(_roomId);
         });
     });
 
@@ -85,8 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
         chatInput.value = "";
-
-        // TODO: SendMessage(_type, messageText, _file);
     });
 
     const newRoomBtn = document.getElementById('new-room');
