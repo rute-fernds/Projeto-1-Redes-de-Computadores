@@ -85,9 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
         chatInput.value = "";
     });
 
-    const newRoomBtn = document.getElementById('new-room');
-    const newRoomSection = document.querySelector('.new-room');
-    const createRoomBnt = document.getElementById("create-room");
+    const createRoomBtn = document.getElementById('new-room');
+    const createRoomSection = document.querySelector('.new-room');
     const cancelCreateBtn = document.getElementById('cancel-create');
 
     createRoomBtn.addEventListener('click', () => {
