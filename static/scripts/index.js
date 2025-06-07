@@ -1,8 +1,7 @@
 import {Register, CreateRoom, EnterRoom, LeaveRoom,
         RemoveRoom, SendMessage}
-from "./back-front.js";
+from "./back-front.mjs";
 
-// TODO: arrumar o import (tá quebrando o script)
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -89,20 +88,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // TODO: SendMessage(_type, messageText, _file);
     });
 
-    const newRoomBtn = document.getElementById('new-room');
-    const newRoomSection = document.querySelector('.new-room');
-    const createRoomBnt = document.getElementById("create-room");
+    const createRoomBtn = document.getElementById('create-room');
+    const createRoomSection = document.querySelector('.create-room');
     const cancelCreateBtn = document.getElementById('cancel-create');
 
-    newRoomBtn.addEventListener('click', () => {
-        newRoomSection.classList.remove('hidden');
-    });
-
-    createRoomBnt.addEventListener("click", () => {
-        // get room name
-        newRoomSection.classList.add('hidden');
-
-        // TODO: CreateRoom();
+    createRoomBtn.addEventListener('click', () => {
+        createRoomSection.classList.remove('hidden');
     });
 
     cancelCreateBtn.addEventListener('click', () => {
