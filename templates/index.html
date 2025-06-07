@@ -20,15 +20,7 @@
         <!-- Seleção de Chat -->
         <section class="chat-room">
             <h2>SALAS</h2>
-            
-            <ul class="chat-room__list">
-                <li class="chat-room__item" data-room="124">
-                    <span class="chat-room__name">Sala 124</span>
-                    <button class="chat-room__delete" data-room="124">
-                        <img src="{{ url_for('static', filename='img/delete.png') }}" alt="">
-                    </button>
-                </li>
-            </ul>
+            <ul class="chat-room__list"></ul>
 
             <button id="create-room">Nova Sala</button>
         </section>
@@ -45,8 +37,6 @@
             </form>
         </section>
         
-
-
         <!-- Chat -->
         <section class="chat">
             <section class="chat__messages"> 
@@ -68,6 +58,11 @@
                         <img src="{{ url_for('static', filename='img/send.png') }}" alt="send Icon">
                     </button>
                 </form>
+
+                <button id="exit-room">
+                    <img src="{{ url_for('static', filename='img/exit.png') }}" alt="exit Icon">
+                </button>
+
             </section> 
         </section>
             

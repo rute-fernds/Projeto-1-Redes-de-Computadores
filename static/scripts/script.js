@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const chatForm = document.querySelector(".chat__form");
     const chatInput = document.getElementById("chat-input");
 
-    // Esconde as seções de escolha de chat-room e chat
+    // Esconde as seções de escolha de chat-room e o chat
     chatRoomSection.style.display = "none";
     chatSection.style.display = "none";
 
@@ -82,11 +82,69 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelCreateBtn = document.getElementById('cancel-create');
 
     createRoomBtn.addEventListener('click', () => {
+        chatRoomSection.style.display = "none"; 
         createRoomSection.classList.remove('hidden');
     });
 
     cancelCreateBtn.addEventListener('click', () => {
+        createRoomSection.classList.add('hidden'); 
+        chatRoomSection.style.display = "block"; 
+    });
+
+    const createRoomForm = document.getElementById('create-room-form');
+    const roomList = document.querySelector('.chat-room__list');
+
+    createRoomForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        const roomName = document.getElementById('room-name').value.trim();
+        if (roomName === "") return;
+
+        const roomId = Date.now();
+
+        // Criando Nova Sala
+        const newRoom = document.createElement('li');
+        newRoom.classList.add('chat-room__item');
+        newRoom.setAttribute('data-room', roomId);
+        newRoom.innerHTML = `
+            <span class="chat-room__name">${roomName}</span>
+            <button class="chat-room__delete" data-room="${roomId}">
+                <img src="img/delete.png" alt="">
+            </button>
+        `;
+        roomList.appendChild(newRoom);
+
+        // Evento para entrar na sala criada
+        newRoom.addEventListener("click", function (event) {
+            if (event.target.closest('.chat-room__delete')) return;
+
+            localStorage.setItem("selectedRoom", roomId);
+            chatRoomSection.style.display = "none";
+            chatSection.style.display = "block";
+        });
+
+        // Evento para deletar sala
+        newRoom.querySelector(".chat-room__delete").addEventListener("click", function (event) {
+            event.stopPropagation();
+            newRoom.remove();
+        });
+
         createRoomSection.classList.add('hidden');
+        createRoomForm.reset();
+
+        localStorage.setItem("selectedRoom", roomId);
+        chatRoomSection.style.display = "none";
+        chatSection.style.display = "block";
+
+    });
+
+    document.getElementById("exit-room").addEventListener("click", function () {
+        // Esconde a tela do chat
+        document.querySelector(".chat").style.display = "none";
+
+        // Mostra a tela de seleção de salas
+        document.querySelector(".chat-room").style.display = "block";
     });
 
 });
+

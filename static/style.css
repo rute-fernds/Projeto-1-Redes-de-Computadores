@@ -182,7 +182,9 @@ body {
 /*Estilização da seção de criar chat room*/
 .create-room {
     width: 100%;
-    max-width: 330px;
+    height: 100%;
+    max-width: 800px;
+    max-height: 500px;
     background-color: #f0f0f0;
     border: 2px solid #808080; 
     border-radius: 6px;
@@ -190,11 +192,6 @@ body {
     text-align: center;
     box-shadow: inset -2px -2px 5px #ffffff, inset 2px 2px 5px #a0a0a0;
     margin-top: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
 }
 
 .create-room h2 {
@@ -342,6 +339,28 @@ body {
     height: 20px;
     width: 20px;
 }
+
+#exit-room {
+    position: absolute;
+    top: 5px;     
+    right: 5px;  
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 10;
+}
+
+#exit-room:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+#exit-room img {
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
 
 /*Estilização das Mensagens Enviadas*/
 .chat__message {
