@@ -1,7 +1,6 @@
-import {Register, CreateRoom, EnterRoom, LeaveRoom,
-        RemoveRoom, SendMessage}
-from "./back-front.mjs";
-
+import {Register, CreateRoom, EnterRoom, LeaveRoom, RemoveRoom,
+        SendMessage, CreateMessageDiv, CreateRoomLi, EmptyChat}
+from "./back-front.js";
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -16,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const chatForm = document.querySelector(".chat__form");
     const chatInput = document.getElementById("chat-input");
 
-    // Esconde as seções de escolha de chat-room e chat
+    // Esconde as seções de escolha de chat-room e o chat
     chatRoomSection.style.display = "none";
     chatSection.style.display = "none";
 
@@ -36,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         loginSection.style.display = "none";
         chatRoomSection.style.display = "block";
 
-        // Register(username);
+        Register(localStorage.getItem("chatUsername"));
     });
 
     // Lógica de seleção do chat
@@ -48,44 +47,37 @@ document.addEventListener("DOMContentLoaded", function () {
             chatRoomSection.style.display = "none";
             chatSection.style.display = "block";
 
-            // TODO: EnterRoom(_roomId);
+            EnterRoom(selectedRoom.getAttribute(roomId));
         });
     });
 
     // Lógica do envio de mensagens
     chatForm.addEventListener("submit", function (event) {
         event.preventDefault();
-
-        const messageText = chatInput.value.trim();
-
-        if (messageText === "") {
-            return;
-        }
-
+        
         const username = localStorage.getItem("chatUsername") || "Usuário";
-
+        
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, "0");
         const minutes = String(now.getMinutes()).padStart(2, "0");
         const time = `[${hours}:${minutes}]`;
 
+
+        const messageText = chatInput.value.trim();
+        if (messageText === "") {
+            return;
+        }
+
+        // TODO: obter file e inserir no CreateMessageDiv
+
         // Criando Mensagem
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("chat__message", "message--self"); 
-
-        messageDiv.innerHTML = `
-            <span class="message__time">${time}</span>
-            <span class="message__user">${username}:</span>
-            <span class="message__text">${messageText}</span>
-        `;
-
-        chatMessages.appendChild(messageDiv);
+        CreateMessageDiv(username, messageText, time);
 
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
         chatInput.value = "";
 
-        // TODO: SendMessage(_type, messageText, _file);
+        SendMessage(messageText);
     });
 
     const createRoomBtn = document.getElementById('create-room');
@@ -93,11 +85,52 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelCreateBtn = document.getElementById('cancel-create');
 
     createRoomBtn.addEventListener('click', () => {
+        chatRoomSection.style.display = "none"; 
         createRoomSection.classList.remove('hidden');
     });
 
     cancelCreateBtn.addEventListener('click', () => {
-        newRoomSection.classList.add('hidden');
+        createRoomSection.classList.add('hidden'); 
+        chatRoomSection.style.display = "block"; 
     });
 
+    const createRoomForm = document.getElementById('create-room-form');
+    
+    /* const roomList = document.querySelector('.chat-room__list'); */
+
+    createRoomForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        const roomName = document.getElementById('room-name').value.trim();
+        if (roomName === "") return;
+
+        createRoomSection.classList.add('hidden');
+        createRoomForm.reset();
+
+        /* localStorage.setItem("selectedRoom", roomId); */
+        chatRoomSection.style.display = "none";
+        chatSection.style.display = "block";
+
+        CreateRoom(roomName);
+    });
+
+    // Saindo do chat
+    document.getElementById("exit-room").addEventListener("click", function () {        
+        localStorage.setItem("roomId", "");
+
+        document.querySelector(".chat").style.display = "none";
+        document.querySelector(".chat-room").style.display = "block";
+
+        EmptyChat();
+        LeaveRoom();
+    });
+
+    const scrollScreen = () => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+            });
+    }
+
 });
+
