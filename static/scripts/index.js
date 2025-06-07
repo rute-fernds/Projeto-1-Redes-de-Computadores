@@ -1,8 +1,6 @@
-import {Register, CreateRoom, EnterRoom, LeaveRoom,
-        RemoveRoom, SendMessage}
+import {Register, CreateRoom, EnterRoom, LeaveRoom, RemoveRoom,
+        SendMessage, CreateMessageDiv, CreateRoomLi, EmptyChat}
 from "./back-front.js";
-
-// TODO: arrumar o import (tá quebrando o script)
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -37,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         loginSection.style.display = "none";
         chatRoomSection.style.display = "block";
 
-        // Register(username);
+        Register(localStorage.getItem("chatUsername"));
     });
 
     // Lógica de seleção do chat
@@ -48,41 +46,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
             chatRoomSection.style.display = "none";
             chatSection.style.display = "block";
+
+            EnterRoom(selectedRoom.getAttribute(roomId));
         });
     });
 
     // Lógica do envio de mensagens
     chatForm.addEventListener("submit", function (event) {
         event.preventDefault();
-
-        const messageText = chatInput.value.trim();
-
-        if (messageText === "") {
-            return;
-        }
-
+        
         const username = localStorage.getItem("chatUsername") || "Usuário";
-
+        
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, "0");
         const minutes = String(now.getMinutes()).padStart(2, "0");
         const time = `[${hours}:${minutes}]`;
 
+
+        const messageText = chatInput.value.trim();
+        if (messageText === "") {
+            return;
+        }
+
+        // TODO: obter file e inserir no CreateMessageDiv
+
         // Criando Mensagem
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("chat__message", "message--self"); 
-
-        messageDiv.innerHTML = `
-            <span class="message__time">${time}</span>
-            <span class="message__user">${username}:</span>
-            <span class="message__text">${messageText}</span>
-        `;
-
-        chatMessages.appendChild(messageDiv);
+        CreateMessageDiv(username, messageText, time);
 
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
         chatInput.value = "";
+
+        SendMessage(messageText);
     });
 
     const createRoomBtn = document.getElementById('create-room');
@@ -100,7 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     const createRoomForm = document.getElementById('create-room-form');
-    const roomList = document.querySelector('.chat-room__list');
+    
+    /* const roomList = document.querySelector('.chat-room__list'); */
 
     createRoomForm.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -108,56 +104,32 @@ document.addEventListener("DOMContentLoaded", function () {
         const roomName = document.getElementById('room-name').value.trim();
         if (roomName === "") return;
 
-        const roomId = Date.now();
-
-        // Criando Nova Sala
-        const newRoom = document.createElement('li');
-        newRoom.classList.add('chat-room__item');
-        newRoom.setAttribute('data-room', roomId);
-        newRoom.innerHTML = `
-            <span class="chat-room__name">${roomName}</span>
-            <button class="chat-room__delete" data-room="${roomId}">
-                <img src="img/delete.png" alt="">
-            </button>
-        `;
-        roomList.appendChild(newRoom);
-
-        // Evento para entrar na sala criada
-        newRoom.addEventListener("click", function (event) {
-            if (event.target.closest('.chat-room__delete')) return;
-
-            localStorage.setItem("selectedRoom", roomId);
-            chatRoomSection.style.display = "none";
-            chatSection.style.display = "block";
-        });
-
-        // Evento para deletar sala
-        newRoom.querySelector(".chat-room__delete").addEventListener("click", function (event) {
-            event.stopPropagation();
-            newRoom.remove();
-        });
-
         createRoomSection.classList.add('hidden');
         createRoomForm.reset();
 
-        localStorage.setItem("selectedRoom", roomId);
+        /* localStorage.setItem("selectedRoom", roomId); */
         chatRoomSection.style.display = "none";
         chatSection.style.display = "block";
 
+        CreateRoom(roomName);
     });
 
     // Saindo do chat
-    document.getElementById("exit-room").addEventListener("click", function () {
-        document.querySelector(".chat").style.display = "none";
+    document.getElementById("exit-room").addEventListener("click", function () {        
+        localStorage.setItem("roomId", "");
 
+        document.querySelector(".chat").style.display = "none";
         document.querySelector(".chat-room").style.display = "block";
+
+        EmptyChat();
+        LeaveRoom();
     });
 
     const scrollScreen = () => {
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
-        })
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+            });
     }
 
 });

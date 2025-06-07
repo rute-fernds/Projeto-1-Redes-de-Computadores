@@ -1,36 +1,36 @@
-import { createRoomLi, setRoomName, listUsers, createMessageDiv,
-         createImgMessageDiv, createFileMessageDiv }
+import {CreateRoomLi, SetRoomName, ListUsers, CreateMessageDiv,
+        CreateImgMessageDiv, CreateFileMessageDiv, EmptyRoomList, 
+        EmptyChat}
 from './back-front.js';
 
-// TODO: arrumar o import (tá quebrando o script)
-
-var socketio = io();
-
-const client = {name : "", roomId : "" };
+export var socketio = io();
 
 
 // listeners
 
 socketio.on("get_rooms", (rooms) => {
+    EmptyRoomList();
+
     rooms.forEach((room) => {
-        createRoomLi(room["id"], room["name"], room["clients"]);
+        CreateRoomLi(room["id"], room["name"], room["clients"]);
     });
 });
 
-
 socketio.on("load_room", (roomData) => {
-    setRoomName(roomData["name"]);
-    listUsers(roomData["clients"]);
+    console.log(roomData["messages"]);
+    EmptyChat();
+    //SetRoomName(roomData["name"]);
+    //ListUsers(roomData["clients"]);
     
     roomData["messages"].forEach((message) => {
-        createMessageDiv(message["author"], message["text"], message["file_buffer"], message["timeStamp"]);
+        CreateMessageDiv(message["author"], message["text"], message["file_buffer"], message["timeStamp"]);
     });
 });
 
 
 socketio.on("get_message", (message) => {
     if (message["type"] == "txt") {
-        createMessageDiv(message["author"], message["text"], message["timeStamp"]);
+        CreateMessageDiv(message["author"], message["text"], message["timeStamp"]);
     }
     else if (message["type"] == "img") {
         let imgBuffer = new Uint8Array(message["file_buffer"]);
@@ -38,7 +38,7 @@ socketio.on("get_message", (message) => {
 
         var imgUrl = URL.createObjectURL(blob);
 
-        createImgMessageDiv(message["author"], imgUrl, message["timeStamp"]);
+        CreateImgMessageDiv(message["author"], imgUrl, message["timeStamp"]);
     }
     else {
         let buffer = new Uint8Array(message["file_buffer"]);
@@ -46,6 +46,6 @@ socketio.on("get_message", (message) => {
 
         var fileUrl = URL.createObjectURL(blob);
 
-        createFileMessageDiv(message["author"], fileUrl, message["timeStamp"]);
+        CreateFileMessageDiv(message["author"], fileUrl, message["timeStamp"]);
     }
 });
