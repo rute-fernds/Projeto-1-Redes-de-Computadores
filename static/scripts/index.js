@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         Register(localStorage.getItem("chatUsername"));
     });
 
+    /*
     // Lógica de seleção do chat
     chatRoomItems.forEach(function (item) {
         item.addEventListener("click", function () {
@@ -47,9 +48,12 @@ document.addEventListener("DOMContentLoaded", function () {
             chatRoomSection.style.display = "none";
             chatSection.style.display = "block";
 
-            EnterRoom(selectedRoom.getAttribute(roomId));
+            location.reload()
+
+            //EnterRoom(selectedRoom.getAttribute("data-room"));
         });
     });
+    */
 
     // Lógica do envio de mensagens
     chatForm.addEventListener("submit", function (event) {
@@ -77,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         chatInput.value = "";
 
-        SendMessage(messageText);
+        SendMessage(messageText, null, null, time);
     });
 
     const createRoomBtn = document.getElementById('create-room');
