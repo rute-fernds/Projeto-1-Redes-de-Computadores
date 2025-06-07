@@ -15,18 +15,18 @@ export function EnterRoom(roomId) {
 }
 
 export function LeaveRoom() {
-    socketio.send("leave_room");
+    socketio.emit("leave_room");
 }
 
 export function RemoveRoom(roomId) {
     socketio.emit("remove_room", {room_id : roomId});
 }
 
-export function SendMessage(msgText=null, fileType=null, fileData=null) {
+export function SendMessage(msgText=null, fileType=null, fileData=null, time) {
     if (fileType && fileData) {
         var fileBuffer = fileData.arrayBuffer; // ArrayBuffer(fileData) ?
     }
-    socketio.emit("send_message", {text : msgText, file_type : fileType, file_buffer : fileBuffer});
+    socketio.emit("send_message", {text : msgText, time : time}); // file_type : fileType, file_buffer : fileBuffer
 }
 
 
@@ -51,7 +51,7 @@ export function CreateRoomLi (roomId, roomName) {
     newRoom.innerHTML = `
         <span class="chat-room__name">${roomName}</span>
         <button class="chat-room__delete" data-room="${roomId}">
-            <img src="../img/delete.png" alt="">
+            <img src="static/img/delete.png" alt="">
         </button>
     `;
 
@@ -62,12 +62,16 @@ export function CreateRoomLi (roomId, roomName) {
         localStorage.setItem("selectedRoom", roomId);
         chatRoomSection.style.display = "none";
         chatSection.style.display = "block";
+
+        EnterRoom(roomId);
     });
 
     // Evento para deletar sala
     newRoom.querySelector(".chat-room__delete").addEventListener("click", function (event) {
         event.stopPropagation();
         newRoom.remove();
+
+        RemoveRoom(roomId);
     });
 
     roomList.appendChild(newRoom);
@@ -91,7 +95,7 @@ export function EmptyChat() {
 
 
 /* cria uma div para uma nova mensagem */
-export function CreateMessageDiv(username, messageText, fileType, file, time) {
+export function CreateMessageDiv(username, messageText, time) { // fileType, file
     const chatMessages = document.querySelector(".chat__messages");
     
     const messageDiv = document.createElement("div");

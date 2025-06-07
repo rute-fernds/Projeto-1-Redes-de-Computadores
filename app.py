@@ -14,20 +14,20 @@ socketio = SocketIO(app)
 
 
 class Message:
-    def __init__(self, author:str, text:str="", fileType=None, fileBuffer=None, timeStamp:str=""):
+    def __init__(self, author:str, text:str="", fileType=None, fileBuffer=None, time:str=""):
         self.author :str = author
         self.text :str = text
-        self.fileType :str = fileType
-        self.fileBuffer = fileBuffer
-        self.timeStamp :str = timeStamp
+        #self.fileType :str = fileType
+        #self.fileBuffer = fileBuffer
+        self.time :str = time
 
     def formatMessage(self) -> dict:
         return {
                 "author"      : self.author,
                 "text"        : self.text,
-                "file_type"   : self.fileType,
-                "file_buffer" : self.fileBuffer,
-                "timeStamp"   : self.timeStamp
+                #"file_type"   : self.fileType,
+                #"file_buffer" : self.fileBuffer,
+                "time"        : self.time
         }
         
 
@@ -36,9 +36,6 @@ class Message:
 
     def getText(self):
         return self.text
-
-    def getTimeStamp(self):
-        return self.timeStamp
 
 
 class Client:
@@ -135,7 +132,7 @@ def listRooms() -> list[dict]:
         "name"    : room.name,
         "clients" : room.clients} for room in chatrooms.values()]
 
-# retorna as mensagens da sala no formato [(nome_autor, conteúdo, timestamp)]
+# retorna as mensagens da sala no formato [(nome_autor, conteúdo, time)]
 def getRoomMessages(room_id) -> list:
     messages = []
     if room_id in chatrooms:
@@ -201,6 +198,7 @@ def createRoom(data):
         chatrooms[newRoom.id] = newRoom
 
         broadcastGetRooms()
+        emit("enter_new_room", newRoom.id)
         print(f"Sala \"{newRoom.name}\" criada!")
 
 
@@ -238,7 +236,7 @@ def leaveRoom():
             room.removeClient(client.id)
             client.leaveRoom()
 
-            emit("get_rooms", listRooms)
+            emit("get_rooms", listRooms())
             print(f"\"{client.name}\" saiu da sala \"{room.name}\"")
 
 
@@ -258,7 +256,7 @@ def removeRoom(data):
                 del chatrooms[room.id]
 
                 broadcastGetRooms()
-                print(f"Sala \"{room.name}\" deletada")
+                print(f"Sala \"{room.name}\" removida")
 
 
 @socketio.on("send_message")
@@ -271,14 +269,19 @@ def onClientMessage(data):
         if not room:
             send("invalid_room")
         else:
-            msg = Message(client.name, text=data["text"], fileType=data["file_type"], fileBuffer=data["file_buffer"], timeStamp=data["timeStamp"])
+            msg = Message(client.name, text=data["text"], time=data["time"]) # fileType=data["file_type"], fileBuffer=data["file_buffer"]
 
             room.addMessage(msg)
 
+            print(f"\"{client.name}\" mandou mensagem na sala \"{room.name}\"")
+            
             # broadcast pra todos os clientes na sala
             for client_id in room.clients:
+                if client.id == client_id:
+                    continue
                 referent_client = getClient(client_id)
                 emit("get_message", msg.formatMessage(), to=referent_client.getSID())
+
 
 
 
