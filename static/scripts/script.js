@@ -138,13 +138,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
+    // Saindo do chat
     document.getElementById("exit-room").addEventListener("click", function () {
-        // Esconde a tela do chat
         document.querySelector(".chat").style.display = "none";
 
-        // Mostra a tela de seleção de salas
         document.querySelector(".chat-room").style.display = "block";
     });
+
+    const scrollScreen = () => {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+        })
+    }
 
 });
 

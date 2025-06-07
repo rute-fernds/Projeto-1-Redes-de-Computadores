@@ -254,44 +254,34 @@ body {
 /*Estilzação do Chat*/
 .chat {
     background-color: #f9f9f9;
-    width: 100%; 
-    max-width: 1000px; 
-    height: 85dvh; 
-    min-height: 500px; 
-    position: fixed; 
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column; 
-    position: absolute no form resolvem;
-    border: 2px solid #808080;
-    box-shadow: inset -2px -2px 5px #ffffff, inset 2px 2px 5px #808080;
-    border-radius: 8px;
-    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .chat__form {
-    width: 100%;
     background-color: #dcdcdc;
+    width: 100%;
     padding: 15px 20px;
     display: flex;
-    gap: 10px; 
-    position: absolute; 
-    bottom: 0; 
-    left: 0; 
-    right: 0; 
-    z-index: 10;
+    align-items: center;
+    gap: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
     border-top: 2px solid #808080; 
     box-shadow: inset -2px -2px 4px #ffffff, inset 2px 2px 4px #808080;
 }
 
 .chat__messages {
+    background-color: #f9f9f9;
     flex-grow: 1;
-    overflow-y: auto;  
+    padding: 30px 30px 90px;
     display: flex;
-    flex-direction: column;              
-    justify-content: flex-end; 
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 /*Estilização do input de envio de mensagens*/
@@ -309,7 +299,7 @@ body {
 }
 
 #chat-input:focus {
-    border-color: #7c7b7b;
+    border-color: #6b6a6a;
     background-color: #f0ebeb;
 }
 
@@ -363,7 +353,7 @@ body {
 
 
 /*Estilização das Mensagens Enviadas*/
-.chat__message {
+.chat__messages > div {
     max-width: 75%; 
     line-height: 1.4; 
     font-size: 0.95rem;
