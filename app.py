@@ -2,6 +2,9 @@ from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, send
 from uuid import uuid4
 
+# import mimetypes
+# mimetypes.add_type('application/javascript', '.js')
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secreta!"
 socketio = SocketIO(app)

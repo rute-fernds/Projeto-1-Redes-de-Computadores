@@ -1,7 +1,8 @@
-import { createRoomDiv, setRoomName, listUsers, createMessageDiv,
+import { createRoomLi, setRoomName, listUsers, createMessageDiv,
          createImgMessageDiv, createFileMessageDiv }
-from './index.js';
+from './back-front.js';
 
+// TODO: arrumar o import (tá quebrando o script)
 
 var socketio = io();
 
@@ -12,7 +13,7 @@ const client = {name : "", roomId : "" };
 
 socketio.on("get_rooms", (rooms) => {
     rooms.forEach((room) => {
-        createRoomDiv(room["id"], room["name"], room["clients"]);
+        createRoomLi(room["id"], room["name"], room["clients"]);
     });
 });
 
@@ -48,39 +49,3 @@ socketio.on("get_message", (message) => {
         createFileMessageDiv(message["author"], fileUrl, message["timeStamp"]);
     }
 });
-
-
-// funções de emissão de mensagens ao servidor
-
-function Register(clientName) {
-    client.name = clientName;
-    socketio.emit("register", {client_name : client.name});
-}
-
-function CreateRoom(roomName) {
-    socketio.emit("create_room", {room_name : roomName});
-}
-
-function EnterRoom(roomId) {
-    client.roomId = roomId;
-    socketio.emit("enter_room", {room_id : client.roomId});
-}
-
-function LeaveRoom() {
-    client.roomId = "";
-    socketio.send("leave_room");
-}
-
-function RemoveRoom() {
-    socketio.emit("remove_room", {room_id : client.roomId});
-}
-
-function SendMessage(type, msgText=null, fileData=null) {
-    if (type == "txt") {
-        socketio.emit("send_message", {type: "txt", text : msgText});
-    }
-    else {
-        var fileBuffer = fileData.arrayBuffer; // ArrayBuffer(fileData) ?
-        socketio.emit("send_message", {type : msgFile.type, file_buffer : fileBuffer});
-    }
-}
