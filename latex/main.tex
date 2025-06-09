@@ -446,13 +446,13 @@ O projeto aborda conceitos como gerenciamento de conexões WebSocket, sincroniza
 
 \section{Fundamentação Teórica}
 
-O ChatWeb 2.0 foi desenvolvido com base no modelo de arquitetura cliente-servidor, no qual o servidor central é responsável por gerenciar conexões, autenticações e o fluxo de mensagens, enquanto os clientes interagem com o sistema por meio de uma interface gráfica. Essa organização segue o princípio clássico da comunicação em redes, conforme discutido por Kurose e Ross em Computer Networking: A Top-Down Approach$^{[10]}$, onde o servidor centraliza a lógica da aplicação e os clientes atuam como consumidores do serviço.
+O ChatWeb 2.0 foi desenvolvido com base no modelo de arquitetura cliente-servidor, no qual o servidor central é responsável por gerenciar conexões, autenticações e o fluxo de mensagens, enquanto os clientes interagem com o sistema por meio de uma interface gráfica. Essa organização segue o princípio clássico da comunicação em redes, conforme discutido por Kurose e Ross em Computer Networking: A Top-Down Approach$^{[1]}$, onde o servidor centraliza a lógica da aplicação e os clientes atuam como consumidores do serviço.
 
 Dessa forma, a aplicação foi estruturada em duas partes principais para o desenvolvimento: front-end e back-end.
 
 O front-end do ChatWeb 2.0 foi construído inteiramente com HTML, CSS e JavaScript, adotando um design visual inspirado na estética da internet do início dos anos 2000. A interface oferece três telas principais para a interação do usuário: uma tela de login; uma tela com a lista de salas de chat disponíveis, que também permite a criação de novas salas; e, por fim, a tela de chat propriamente dita, onde os usuários podem enviar e receber mensagens em tempo real.
 
-Para o back-end da aplicação, utilizamos a linguagem Python em conjunto com o framework Flask$^{[3]}$ para a construção de um servidor baseado na biblioteca Werkzeug. Além disso, foi empregada a extensão Flask-SocketIO$^{[4]}$, que implementa o protocolo Socket.IO para aplicações Flask. Essa biblioteca permite a comunicação bidirecional em tempo real entre cliente e servidor, viabilizando o envio e recebimento de mensagens instantâneas sem a necessidade de recarregamento da página. No lado do cliente, a biblioteca JavaScript Socket.IO foi utilizada para estabelecer conexões persistentes com o servidor e gerenciar os eventos de comunicação. Ela fornece uma API simples para emitir e escutar eventos personalizados, facilitando o desenvolvimento de interações em tempo real.
+Para o back-end da aplicação, utilizamos a linguagem Python em conjunto com o framework Flask$^{[2]}$ para a construção de um servidor baseado na biblioteca Werkzeug$^{[3]}$. Além disso, foi empregada a extensão Flask-SocketIO$^{[5]}$, que implementa o protocolo Socket.IO$^{[4]}$ para aplicações Flask. Essa biblioteca permite a comunicação bidirecional em tempo real entre cliente e servidor, viabilizando o envio e recebimento de mensagens instantâneas sem a necessidade de recarregamento da página. No lado do cliente, a biblioteca JavaScript Socket.IO foi utilizada para estabelecer conexões persistentes com o servidor e gerenciar os eventos de comunicação. Ela fornece uma API simples para emitir e escutar eventos personalizados, facilitando o desenvolvimento de interações em tempo real.
 
 A identificação única de usuários e salas é feita por meio da biblioteca UUID, uma ferramenta nativa do Python utilizada para gerar identificadores únicos universais (UUIDs). Com ela, é possível garantir que cada cliente e sala de chat tenha um ID exclusivo, evitando conflitos e assegurando a integridade dos dados, mesmo em cenários com múltiplas conexões simultâneas.
 
@@ -470,20 +470,15 @@ O sistema foi implementado utilizando uma arquitetura cliente-servidor moderna, 
 \textbf{Ambiente de Rede}:
 Os experimentos foram realizados em rede local (LAN), com o servidor executando em uma máquina Linux e clientes conectando através de navegadores web modernos. Esta configuração isolada permitiu análise detalhada do tráfego de rede sem interferências externas, facilitando a observação dos protocolos de comunicação em diferentes camadas.
 
-\textbf{Ferramentas de Monitoramento}:
-Para análise do comportamento da rede, utilizou-se o Wireshark$^{[5]}$ como ferramenta principal de captura e análise de pacotes. Esta ferramenta permitiu observação detalhada do estabelecimento de conexões WebSocket, identificação dos frames de dados trocados e análise do comportamento dos protocolos nas camadas física, enlace, rede, transporte e aplicação.
+\subsection{Análise dos Resultados}
 
-\section{Análise dos Resultados}
-
-\subsection{Monitoramento de Pacotes}
-
-Ao monitorar os pacotes transmitidos entre servidor e clientes durante o uso da aplicação, através do software Wireshark$^{[5]}$, próprio para a análise de tráfego de rede, foi possível destacar os pacotes gerados pela comunicação entre os dispositivos.
+Ao monitorar os pacotes transmitidos entre servidor e clientes durante o uso da aplicação, através de software próprio para a análise de tráfego de rede, foi possível destacar os pacotes gerados pela comunicação entre os dispositivos.
 
 A ferramenta permitiu a inspeção das requisições HTTP dos arquivos presentes no servidor (elementos HTML, imagens, códigos em JavaScript, arquivos CSS) realizadas por parte dos clientes, além das mensagens de comunicação do SocketIO entre cliente e servidor. O tráfego desses dados permitiu que os clientes fizessem uso pleno dos recursos da aplicação: registrassem-se com nome, criassem salas de bate-papo e trocassem mensagens por elas.
 
 No experimento conduzido, o laptop que se comunicou com o servidor será chamado de Cliente 1 e o celular, Cliente 2. A seção seguinte destrincha os resultados obtidos.
 
-\subsection{Análise dos Resultados Obtidos}
+\textbf{Análise dos Resultados Obtidos}
 
 
 \begin{figure}[!h]
@@ -553,81 +548,7 @@ No experimento conduzido, o laptop que se comunicou com o servidor será chamado
 
 \section{Conclusão}
 
-O desenvolvimento deste sistema de chat em tempo real proporcionou uma compreensão prática e aprofundada dos conceitos fundamentais de redes de computadores. A implementação bem-sucedida demonstra a viabilidade e eficiência das tecnologias WebSocket para aplicações que requerem comunicação bidirecional em tempo real.
-
-\subsection{Principais Conquistas}
-
-O desenvolvimento do ChatWeb 2.0 alcançou todos os objetivos estabelecidos, combinando funcionalidade técnica com uma experiência visual nostálgica autêntica:
-
-\begin{itemize}
-\item \textbf{Implementação Completa}: Sistema de chat multi-usuário totalmente funcional com criação dinâmica de salas
-\item \textbf{Estética Nostálgica}: Interface que reproduz a experiência do Windows XP e início dos anos 2000
-\item \textbf{Arquitetura Robusta}: Estrutura orientada a eventos com classes bem definidas e separação de responsabilidades
-\item \textbf{Comunicação WebSocket}: Demonstração prática de protocolos modernos com análise detalhada de tráfego
-\item \textbf{Validação e Robustez}: Sistema de validações que previne estados inconsistentes e trata erros adequadamente
-\end{itemize}
-
-\subsection{Aprendizados Técnicos}
-
-O desenvolvimento do ChatWeb 2.0 proporcionou insights valiosos sobre programação de redes e desenvolvimento web moderno:
-
-\textbf{Arquitetura Cliente-Servidor Moderna}: A implementação demonstrou como o paradigma orientado a eventos com WebSockets permite criar aplicações responsivas e escaláveis. O Flask-SocketIO abstraiu complexidades de baixo nível mantendo controle sobre o protocolo de comunicação.
-
-\textbf{Gerenciamento de Estado Distribuído}: A sincronização entre múltiplos clientes revelou desafios únicos na manutenção de consistência. A abordagem de "fonte única da verdade" no servidor com propagação de eventos mostrou-se eficaz para manter todos os clientes sincronizados.
-
-\textbf{Protocolos de Camada de Aplicação}: O Socket.IO demonstrou como protocolos de alto nível podem fornecer funcionalidades avançadas (como rooms, namespaces e reconnection) sobre WebSockets básicos, ilustrando a importância das abstrações de protocolo.
-
-\textbf{Design de Interface}: A recriação da estética do Windows XP usando CSS moderno (flexbox, grid, box-shadow) demonstrou como técnicas contemporâneas podem replicar visuals clássicos, combinando o melhor de ambas as épocas.
-
-\textbf{Modularização JavaScript}: A arquitetura em módulos ES6 permitiu separação clara de responsabilidades entre manipulação de DOM, comunicação de rede e lógica de apresentação, facilitando manutenção e evolução do código.
-
-\textbf{Análise de Protocolos em Tempo Real}: O uso do Wireshark revelou detalhes fascinantes sobre como dados são transmitidos através das camadas de rede, desde frames Ethernet até mensagens Socket.IO, proporcionando visão prática da pilha TCP/IP.
-
-\subsection{Limitações e Trabalhos Futuros}
-
-Embora o ChatWeb 2.0 tenha alcançado seus objetivos educacionais, algumas limitações foram identificadas e representam oportunidades para evolução:
-
-\textbf{Limitações Atuais}:
-\begin{itemize}
-\item \textbf{Persistência de Dados}: Mensagens e salas existem apenas durante a sessão do servidor
-\item \textbf{Escalabilidade}: Armazenamento em memória limita o número de usuários e mensagens
-\item \textbf{Autenticação}: Sistema atual usa apenas nomes de usuário sem senhas ou criptografia
-\item \textbf{Suporte a Mídia}: Funcionalidade de arquivos e imagens foi parcialmente implementada
-\item \textbf{Moderação}: Ausência de controles administrativos e filtros de conteúdo
-\end{itemize}
-
-\textbf{Oportunidades de Expansão}:
-\begin{itemize}
-\item \textbf{ChatWeb 3.0}: Evolução com banco de dados para persistência
-\item \textbf{Recursos Nostálgicos}: Integração de emoticons pixelizados e sounds effects clássicos
-\item \textbf{Salas Temáticas}: Implementação de temas visuais diferentes (Windows 98, Mac OS Classic, etc.)
-\item \textbf{Bots e Easter Eggs}: Adição de elementos interativos que remetem à época
-\item \textbf{Histórico de Conversas}: Sistema de logs e busca em mensagens antigas
-\item \textbf{Status e Away Messages}: Funcionalidades características dos messengers clássicos
-\end{itemize}
-
-\textbf{Melhorias Técnicas}:
-\begin{itemize}
-\item Implementação de rate limiting para prevenir spam
-\item Otimização de performance para milhares de usuários simultâneos
-\item Adição de SSL/TLS para comunicação segura
-\item Desenvolvimento de API REST complementar para integração
-\item Implementação de testes automatizados unitários e de integração
-\end{itemize}
-
-\subsection{Considerações Finais}
-
-O desenvolvimento do ChatWeb 2.0 representa uma síntese bem-sucedida entre aprendizado técnico e expressão criativa, demonstrando como projetos educacionais podem ir além da mera implementação funcional para criar experiências memoráveis e significativas.
-
-\textbf{Impacto Educacional}: Este projeto demonstra como conceitos fundamentais de redes de computadores podem ser assimilados através de implementação prática. A combinação de programação client-server, análise de protocolos e design de interface proporcionou uma compreensão holística dos sistemas distribuídos modernos.
-
-\textbf{Valor da Nostalgia Técnica}: A escolha estética do Windows XP não foi meramente decorativa, mas serviu como ponte entre tecnologias modernas (WebSockets, ES6, CSS3) e a experiência familiar de interfaces clássicas. Isso demonstra como o design pode facilitar a adoção e compreensão de tecnologias complexas.
-
-\textbf{Validação Prática}: A análise detalhada do tráfego de rede com Wireshark confirmou o funcionamento correto de todos os protocolos envolvidos, desde frames Ethernet até mensagens Socket.IO. Essa validação empírica reforça a importância da experimentação prática no aprendizado de redes de computadores.
-
-\textbf{Arquitetura para o Futuro}: A estrutura modular e orientada a eventos criada no ChatWeb 2.0 estabelece uma base sólida para evoluções futuras, seja na direção de maior escala, funcionalidades avançadas ou diferentes temáticas nostálgicas.
-
-O sucesso deste projeto evidencia que o aprendizado de redes de computadores pode ser simultaneamente rigoroso e divertido, técnico e criativo, moderno e nostálgico. O ChatWeb 2.0 não apenas cumpriu seus objetivos educacionais, mas criou uma experiência única que celebra tanto a evolução tecnológica quanto a nostalgia pelos primórdios da internet.
+O desenvolvimento do ChatWeb 2.0 proporcionou uma compreensão prática dos conceitos fundamentais de redes de computadores, demonstrando a viabilidade das tecnologias WebSocket para comunicação em tempo real. A implementação combinou funcionalidade técnica moderna com design nostálgico do Windows XP, enquanto a análise detalhada do tráfego com Wireshark revelou o funcionamento prático da pilha TCP/IP. O projeto evidenciou o valor de abordagens práticas e criativas no ensino de sistemas distribuídos.
 
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page
@@ -653,55 +574,32 @@ O sucesso deste projeto evidencia que o aprendizado de redes de computadores pod
 % (used to reserve space for the reference number labels box)
 \begin{thebibliography}{9}
 
-\bibitem{rfc6455}
-I.~Fette and A.~Melnikov, ``The WebSocket Protocol,'' RFC 6455, 
-Internet Engineering Task Force, December 2011. [Online]. Available: 
-https://tools.ietf.org/html/rfc6455
-
-\bibitem{socketio}
-Socket.IO Development Team, ``Socket.IO - Realtime application framework,'' 
-[Online]. Available: https://socket.io/
-
-\bibitem{flask}
-A.~Ronacher, ``Flask - A Python Microframework,'' 
-[Online]. Available: https://flask.palletsprojects.com/
-
-\bibitem{flasksocketio}
-M.~Grinberg, ``Flask-SocketIO - Socket.IO integration for Flask applications,'' 
-[Online]. Available: https://flask-socketio.readthedocs.io/
-
-\bibitem{wireshark}
-Wireshark Foundation, ``Wireshark - Network Protocol Analyzer,'' 
-[Online]. Available: https://www.wireshark.org/
-
-\bibitem{tcp}
-J.~Postel, ``Transmission Control Protocol,'' RFC 793, 
-Internet Engineering Task Force, September 1981. [Online]. Available: 
-https://tools.ietf.org/html/rfc793
-
-\bibitem{http11}
-R.~Fielding et al., ``Hypertext Transfer Protocol -- HTTP/1.1,'' RFC 2616, 
-Internet Engineering Task Force, June 1999. [Online]. Available: 
-https://tools.ietf.org/html/rfc2616
-
-\bibitem{realtime}
-L.~Richardson and S.~Ruby, \emph{RESTful Web Services}, 1st~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax O'Reilly Media, 2007.
-
-\bibitem{websocket_book}
-A.~Lombardi, \emph{WebSocket - Lightweight Client-Server Communications}, 1st~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax O'Reilly Media, 2015.
-
 \bibitem{kurose}
 J.~F.~Kurose and K.~W.~Ross, \emph{Computer Networking: A Top-Down Approach}, 8th~ed.\hskip 1em plus
   0.5em minus 0.4em\relax Pearson, 2021.
 
+\bibitem{flask}
+``Flask Documentation,'' 
+[Online]. Available: https://flask.palletsprojects.com/en/stable/
+
+\bibitem{werkzeug}
+``Werkzeug Documentation,'' 
+[Online]. Available: https://werkzeug.palletsprojects.com/en/stable/
+
+\bibitem{socketio}
+``Documentação SocketIO,'' 
+[Online]. Available: https://socket.io/pt-br/docs/v4/
+
+\bibitem{flasksocketio}
+``Flask-SocketIO Documentation,'' 
+[Online]. Available: https://flask-socketio.readthedocs.io/en/latest/index.html
+
 \bibitem{gabrielcarvfer}
-G.~Carvalho, ``Redes-de-Computadores-UnB - Material de apoio para disciplina de Redes de Computadores,'' 
+``Gabrielcarvfer - Redes-de-Computadores-UnB,'' 
 [Online]. Available: https://github.com/Gabrielcarvfer/Redes-de-Computadores-UnB
 
 \bibitem{mdn}
-Mozilla Developer Network, ``Web technology for developers,'' 
+``MDS Web Docs - References,'' 
 [Online]. Available: https://developer.mozilla.org/en-US/docs/Web
 
 \end{thebibliography}
