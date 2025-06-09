@@ -304,7 +304,7 @@
 
 % *** PDF, URL AND HYPERLINK PACKAGES ***
 %
-%\usepackage{url}
+\usepackage{url}
 % url.sty was written by Donald Arseneau. It provides better support for
 % handling and breaking URLs. url.sty is already installed on most LaTeX
 % systems. The latest version and documentation can be obtained at:
@@ -444,6 +444,8 @@ O sistema foi projetado como uma ferramenta educacional que ilustra o funcioname
 
 O projeto aborda conceitos como gerenciamento de conexões WebSocket, sincronização de estado distribuído, arquitetura orientada a eventos e análise de tráfego de rede em tempo real. Através da implementação e análise deste sistema, é possível compreender como as comunicações bidirecionais modernas funcionam e os desafios envolvidos no desenvolvimento de aplicações web em tempo real.
 
+Para complementar a documentação técnica, foi elaborado um pitch gravado apresentando as principais funcionalidades e características do ChatWeb 2.0$^{[8]}$. Este material audiovisual demonstra a aplicação em funcionamento e contextualiza os aspectos técnicos abordados neste relatório.
+
 \section{Fundamentação Teórica}
 
 O ChatWeb 2.0 foi desenvolvido com base no modelo de arquitetura cliente-servidor, no qual o servidor central é responsável por gerenciar conexões, autenticações e o fluxo de mensagens, enquanto os clientes interagem com o sistema por meio de uma interface gráfica. Essa organização segue o princípio clássico da comunicação em redes, conforme discutido por Kurose e Ross em Computer Networking: A Top-Down Approach$^{[1]}$, onde o servidor centraliza a lógica da aplicação e os clientes atuam como consumidores do serviço.
@@ -472,14 +474,11 @@ Os experimentos foram realizados em rede local (LAN), com o servidor executando 
 
 \subsection{Análise dos Resultados}
 
-Ao monitorar os pacotes transmitidos entre servidor e clientes durante o uso da aplicação, através de software próprio para a análise de tráfego de rede, foi possível destacar os pacotes gerados pela comunicação entre os dispositivos.
+Ao monitorar os pacotes transmitidos entre servidor e clientes durante o uso da aplicação, através do WireShark, um software próprio para análise de tráfego de rede, foi possível destacar os pacotes gerados pela comunicação entre os dispositivos.
 
 A ferramenta permitiu a inspeção das requisições HTTP dos arquivos presentes no servidor (elementos HTML, imagens, códigos em JavaScript, arquivos CSS) realizadas por parte dos clientes, além das mensagens de comunicação do SocketIO entre cliente e servidor. O tráfego desses dados permitiu que os clientes fizessem uso pleno dos recursos da aplicação: registrassem-se com nome, criassem salas de bate-papo e trocassem mensagens por elas.
 
 No experimento conduzido, o laptop que se comunicou com o servidor será chamado de Cliente 1 e o celular, Cliente 2. A seção seguinte destrincha os resultados obtidos.
-
-\textbf{Análise dos Resultados Obtidos}
-
 
 \begin{figure}[!h]
 \centering
@@ -580,27 +579,31 @@ J.~F.~Kurose and K.~W.~Ross, \emph{Computer Networking: A Top-Down Approach}, 8t
 
 \bibitem{flask}
 ``Flask Documentation,'' 
-[Online]. Available: https://flask.palletsprojects.com/en/stable/
+[Online]. Disponível em: https://flask.palletsprojects.com/en/stable/
 
 \bibitem{werkzeug}
 ``Werkzeug Documentation,'' 
-[Online]. Available: https://werkzeug.palletsprojects.com/en/stable/
+[Online]. Disponível em: https://werkzeug.palletsprojects.com/en/stable/
 
 \bibitem{socketio}
 ``Documentação SocketIO,'' 
-[Online]. Available: https://socket.io/pt-br/docs/v4/
+[Online]. Disponível em: https://socket.io/pt-br/docs/v4/
 
 \bibitem{flasksocketio}
 ``Flask-SocketIO Documentation,'' 
-[Online]. Available: https://flask-socketio.readthedocs.io/en/latest/index.html
+[Online]. Disponível em: https://flask-socketio.readthedocs.io/en/latest/index.html
 
 \bibitem{gabrielcarvfer}
 ``Gabrielcarvfer - Redes-de-Computadores-UnB,'' 
-[Online]. Available: https://github.com/Gabrielcarvfer/Redes-de-Computadores-UnB
+[Online]. Disponível em: https://github.com/Gabrielcarvfer/Redes-de-Computadores-UnB
 
 \bibitem{mdn}
 ``MDS Web Docs - References,'' 
-[Online]. Available: https://developer.mozilla.org/en-US/docs/Web
+[Online]. Disponível em: https://developer.mozilla.org/en-US/docs/Web
+
+\bibitem{chatweb_video}
+``ChatWeb 2.0 | Redes de Computadores - Projeto 1 | UnB | 2025.1,'' 
+[Online]. Disponível em: https://www.youtube.com/watch?v=Wv99rDKSWm0
 
 \end{thebibliography}
 \end{otherlanguage}

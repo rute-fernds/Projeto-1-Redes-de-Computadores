@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.6.7)  8 JUN 2025 23:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.6.7)  9 JUN 2025 17:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -146,6 +146,10 @@ File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
 \Gin@req@height=\dimen165
 \Gin@req@width=\dimen166
 )
+(/usr/share/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
 (/usr/share/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2025/02/14 v25.4 The multilingual framework for pdfLaTeX, LuaLaT
 eX and XeLaTeX
@@ -272,13 +276,13 @@ Package pdftex.def Info: ../media/chatweb.png  used on input line 438.
 
 
 LaTeX Font Info:    Calculating math sizes for size <10.03749> on input line 44
-9.
+7.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.03749> on input line 449.
+(Font)              <10.03749> on input line 447.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7.0262> on input line 449.
+(Font)              <7.0262> on input line 447.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5.01874> on input line 449.
+(Font)              <5.01874> on input line 447.
 
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fon
@@ -286,7 +290,7 @@ ts/enc/dvips/base/8r.enc}
 
 
  <../media/chatweb.png>]
-Underfull \hbox (badness 2173) in paragraph at lines 455--456
+Underfull \hbox (badness 2173) in paragraph at lines 457--458
 \OT1/ptm/m/n/10.03749 gem Python em con-junto com o fra-mework Flask$[]$
  []
 
@@ -295,18 +299,21 @@ Underfull \hbox (badness 2173) in paragraph at lines 455--456
 <../media/00-client0_app.png, id=14, 1927.2pt x 1051.93pt>
 File: ../media/00-client0_app.png Graphic file (type png)
 <use ../media/00-client0_app.png>
-Package pdftex.def Info: ../media/00-client0_app.png  used on input line 486.
+Package pdftex.def Info: ../media/00-client0_app.png  used on input line 485.
 (pdftex.def)             Requested size: 243.91125pt x 133.12814pt.
 <../media/01-client1_app.png, id=15, 1927.2pt x 1051.93pt>
 File: ../media/01-client1_app.png Graphic file (type png)
 <use ../media/01-client1_app.png>
-Package pdftex.def Info: ../media/01-client1_app.png  used on input line 493.
+Package pdftex.def Info: ../media/01-client1_app.png  used on input line 492.
 (pdftex.def)             Requested size: 243.91125pt x 133.12814pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 <../media/02-OK_listeners.js_file_data.png, id=16, 1927.2pt x 1051.93pt>
 File: ../media/02-OK_listeners.js_file_data.png Graphic file (type png)
 <use ../media/02-OK_listeners.js_file_data.png>
 Package pdftex.def Info: ../media/02-OK_listeners.js_file_data.png  used on inp
-ut line 500.
+ut line 499.
 (pdftex.def)             Requested size: 243.91125pt x 133.12814pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -315,7 +322,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: ../media/03-listeners_total_bytes.png Graphic file (type png)
 <use ../media/03-listeners_total_bytes.png>
 Package pdftex.def Info: ../media/03-listeners_total_bytes.png  used on input l
-ine 507.
+ine 506.
 (pdftex.def)             Requested size: 243.91125pt x 48.27791pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -323,7 +330,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <../media/04-register.png, id=18, 1927.2pt x 1051.93pt>
 File: ../media/04-register.png Graphic file (type png)
 <use ../media/04-register.png>
-Package pdftex.def Info: ../media/04-register.png  used on input line 514.
+Package pdftex.def Info: ../media/04-register.png  used on input line 513.
 (pdftex.def)             Requested size: 243.91125pt x 133.12814pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -332,7 +339,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: ../media/05-server_link_network.png Graphic file (type png)
 <use ../media/05-server_link_network.png>
 Package pdftex.def Info: ../media/05-server_link_network.png  used on input lin
-e 521.
+e 520.
 (pdftex.def)             Requested size: 243.91125pt x 133.12814pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -341,7 +348,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: ../media/06-server_transport.png Graphic file (type png)
 <use ../media/06-server_transport.png>
 Package pdftex.def Info: ../media/06-server_transport.png  used on input line 5
-28.
+27.
 (pdftex.def)             Requested size: 243.91125pt x 133.12814pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -350,38 +357,64 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: ../media/07-server_application.png Graphic file (type png)
 <use ../media/07-server_application.png>
 Package pdftex.def Info: ../media/07-server_application.png  used on input line
- 535.
+ 534.
 (pdftex.def)             Requested size: 243.91125pt x 133.12814pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-
-[2 <../media/00-client0_app.png> <../media/01-client1_app.png>]
-
-
-Underfull \hbox (badness 1448) in paragraph at lines 542--543
+Underfull \hbox (badness 1448) in paragraph at lines 541--542
 []\OT1/ptm/b/n/10.03749 B. \OT1/ptm/m/n/10.03749 Nas fi-gu-ras 2 e 3 est[]ao re
 -pre-sen-ta-dos os IPs
  []
 
 
 
-[3 <../media/02-OK_listeners.js_file_data.png> <../media/03-listeners_total_byt
-es.png> <../media/04-register.png> <../media/05-server_link_network.png> <../me
-dia/06-server_transport.png> <../media/07-server_application.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 582--584
-[]\OT1/ptm/m/n/8.03 ``Flask Do-cu-men-ta-tion,'' [On-line]. Avai-la-ble:
+[2 <../media/00-client0_app.png>]
+
+
+
+[3 <../media/01-client1_app.png> <../media/02-OK_listeners.js_file_data.png> <.
+./media/03-listeners_total_bytes.png> <../media/04-register.png> <../media/05-s
+erver_link_network.png> <../media/06-server_transport.png> <../media/07-server_
+application.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 581--583
+[]\OT1/ptm/m/n/8.03 ``Flask Do-cu-men-ta-tion,'' [On-line]. Dis-pon[]^^Pvel em:
+
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 586--588
-[]\OT1/ptm/m/n/8.03 ``Werkzeug Do-cu-men-ta-tion,'' [On-line]. Avai-la-ble:
+Underfull \hbox (badness 10000) in paragraph at lines 585--587
+[]\OT1/ptm/m/n/8.03 ``Werkzeug Do-cu-men-ta-tion,'' [On-line]. Dis-pon[]^^Pvel 
+em:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 602--604
-[]\OT1/ptm/m/n/8.03 ``MDS Web Docs - Re-fe-ren-ces,'' [On-line]. Avai-la-ble:
+Underfull \hbox (badness 10000) in paragraph at lines 589--591
+[]\OT1/ptm/m/n/8.03 ``Documenta[][]ao Soc-ke-tIO,'' [On-line]. Dis-pon[]^^Pvel 
+em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 593--595
+[]\OT1/ptm/m/n/8.03 ``Flask-SocketIO Do-cu-men-ta-tion,'' [On-line]. Dis-pon[]^
+^Pvel em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 601--603
+[]\OT1/ptm/m/n/8.03 ``MDS Web Docs - Re-fe-ren-ces,'' [On-line]. Dis-pon[]^^Pve
+l em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 605--607
+[]\OT1/ptm/m/n/8.03 ``ChatWeb 2.0 | Re-des de Com-pu-ta-do-res - Pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 605--607
+\OT1/ptm/m/n/8.03 jeto 1 | UnB | 2025.1,'' [On-line]. Dis-pon[]^^Pvel em:
  []
 
 
@@ -408,10 +441,10 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4067 strings out of 474637
- 74387 string characters out of 5756212
- 491332 words of memory out of 5000000
- 27190 multiletter control sequences out of 15000+600000
+ 4152 strings out of 474637
+ 75528 string characters out of 5756212
+ 494474 words of memory out of 5000000
+ 27271 multiletter control sequences out of 15000+600000
  593676 words of font info for 90 fonts, out of 8000000 for 9000
  269 hyphenation exceptions out of 8191
  59i,11n,67p,843b,366s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -419,7 +452,7 @@ Here is how much of TeX's memory you used:
 xmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/ur
 w/times/utmbi8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></u
 sr/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (4 pages, 2028210 bytes).
+Output written on main.pdf (4 pages, 2029213 bytes).
 PDF statistics:
  62 PDF objects out of 1000 (max. 8388607)
  27 compressed objects within 1 object stream
